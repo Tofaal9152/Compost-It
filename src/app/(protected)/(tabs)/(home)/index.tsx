@@ -23,7 +23,7 @@ export default function HomePage() {
 
         <YourLocation />
 
-        {role !== "household" && (
+        {role === "household" && (
           <Link href="/request-pickup" asChild push>
             <Button className="bg-[#0F5329] dark:bg-green-700 px-6 py-3 rounded-full shadow-lg mt-2">
               <Text className="text-white text-center text-base font-semibold tracking-wide">

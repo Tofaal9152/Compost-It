@@ -23,7 +23,9 @@ const HouseholdScreen = () => {
 
   return (
     <View>
-      <Text className="text-lg font-bold mb-3 text-[#0F5329]">Sell Scraps</Text>
+      <Text className="text-lg font-bold mb-3 text-[#0F5329] dark:text-green-400">
+        Sell Scraps
+      </Text>
       <View className="flex-row justify-between mb-6">
         {scrapItems.map((item, idx) => (
           <View key={idx} className="items-center">
@@ -40,16 +42,20 @@ const HouseholdScreen = () => {
       </View>
 
       {/* Current Deals Section */}
-      <Text className="text-lg font-bold mb-3 text-[#0F5329]">
+      <Text className="text-lg font-bold mb-3 text-[#0F5329] dark:text-green-400">
         Current Deals
       </Text>
       <View className="flex-row flex-wrap  justify-between my-4  gap-2">
         {["PLASTIC", "PAPER", "E-TRASH", "ORGANIC"].map((deal, index) => (
           <View
             key={index}
-            className="bg-[#E0E0D5] h-[6rem] rounded-lg shadow-md flex-1 items-center justify-center "
+            className="bg-[#E0E0D5]
+            dark:bg-gray-800
+            h-[6rem] rounded-lg shadow-md flex-1 items-center justify-center "
           >
-            <Text className="text-[#0F5329] text-sm">{deal}</Text>
+            <Text className="text-[#0F5329] dark:text-green-400 text-sm">
+              {deal}
+            </Text>
           </View>
         ))}
       </View>

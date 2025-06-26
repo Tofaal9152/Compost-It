@@ -23,9 +23,7 @@ export default function SignupByRole() {
 
       {/* Login Link */}
       <View className="flex-row justify-center">
-        <Text className="text-gray-700 dark:text-gray-300">
-          Already have an account?{" "}
-        </Text>
+        <Text className="text-gray-700">Already have an account? </Text>
         <Link href="/(auth)" dismissTo>
           <Text className="text-[#0F5329] font-semibold">Login</Text>
         </Link>

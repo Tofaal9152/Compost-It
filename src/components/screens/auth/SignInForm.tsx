@@ -47,7 +47,7 @@ const SignInForm = () => {
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
-              className="text-sm"
+              className="text-sm bg-white border-0 text-black"
               placeholderTextColor="#6B7280"
             />
           )}
@@ -72,7 +72,7 @@ const SignInForm = () => {
               onChangeText={onChange}
               onBlur={onBlur}
               autoCapitalize="none"
-              className="text-sm"
+              className="text-sm bg-white border-0 text-black"
               placeholderTextColor="#6B7280"
             />
           )}
@@ -105,7 +105,7 @@ const SignInForm = () => {
             size={20}
             color="#0F5329"
           />
-          <Text className="ml-1 text-xs text-gray-700 dark:text-gray-300">
+          <Text className="ml-1 text-xs text-gray-700">
             Remember Me
           </Text>
         </TouchableOpacity>

@@ -21,6 +21,7 @@ import { showToast } from "~/src/hooks/useToast";
 import API from "~/src/lib/api";
 import { useAuthStore } from "~/src/store/authStore";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 export default function RequestPickup() {
   const { id } = useAuthStore();
   const insets = useSafeAreaInsets();
@@ -49,7 +50,6 @@ export default function RequestPickup() {
         Alert.alert("Permission denied", "Location permission is required.");
         return;
       }
-
       const loc = await Location.getCurrentPositionAsync({});
       setLocation({
         lat: loc.coords.latitude,
@@ -78,10 +78,10 @@ export default function RequestPickup() {
       preferred_time: preferredTime,
       notes,
     };
-    console.log("Submitting pickup request with payload:", payload);
+
     try {
       setLoading(true);
-      await API.post("/api/pickup-requests", payload);
+      await API.post("api/pickup-requests", payload);
 
       showToast({
         title: "Success",
@@ -108,6 +108,7 @@ export default function RequestPickup() {
       setLoading(false);
     }
   };
+
   const showDatePicker = () => {
     DateTimePickerAndroid.open({
       value: preferredTime ? new Date(preferredTime) : new Date(),
@@ -120,49 +121,73 @@ export default function RequestPickup() {
       },
     });
   };
+
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={{ flexGrow: 1, padding: 16 }}
       enableOnAndroid
-      className="bg-[#F4F4F4]"
+      className="bg-gray-50 dark:bg-gray-950"
       extraScrollHeight={100}
       keyboardShouldPersistTaps="handled"
     >
-      {/* Preferred Time Picker Button */}
-
       {/* Waste Type Selector */}
       <View className="mb-4">
-        <Label className="text-[#0F5329]" htmlFor="wasteType">
+        <Label className="text-gray-900 dark:text-gray-100" htmlFor="wasteType">
           Type of Waste
         </Label>
         <Select
           defaultValue={{ label: "Organic", value: "organic" }}
-          className="text-[#0F5329] dark:bg-white dark:border-gray-300"
+          className="dark:bg-gray-900 dark:border-gray-600"
           onValueChange={(
             option: { label: string; value: string } | undefined
           ) => {
             if (option) setWasteType(option.value);
           }}
         >
-          <SelectTrigger className="bg-white rounded p-3 mt-1">
-            <SelectValue placeholder="Select Waste Type" />
+          <SelectTrigger className="bg-white dark:bg-gray-900 rounded p-3 mt-1 border border-gray-300 dark:border-gray-600">
+            <SelectValue
+              placeholder="Select Waste Type"
+              className="text-gray-900 dark:text-gray-100"
+            />
           </SelectTrigger>
-          <SelectContent insets={contentInsets}>
+          <SelectContent insets={contentInsets} className="dark:bg-gray-800">
             <SelectGroup>
-              <SelectLabel>Waste Types</SelectLabel>
-              <SelectItem value="organic" label="Organic">
+              <SelectLabel className="text-gray-900 dark:text-gray-300">
+                Waste Types
+              </SelectLabel>
+              <SelectItem
+                value="organic"
+                label="Organic"
+                className="dark:text-gray-100"
+              >
                 Organic
               </SelectItem>
-              <SelectItem value="plastic" label="Plastic">
+              <SelectItem
+                value="plastic"
+                label="Plastic"
+                className="dark:text-gray-100"
+              >
                 Plastic
               </SelectItem>
-              <SelectItem value="paper" label="Paper">
+              <SelectItem
+                value="paper"
+                label="Paper"
+                className="dark:text-gray-100"
+              >
                 Paper
               </SelectItem>
-              <SelectItem value="metal" label="Metal">
+              <SelectItem
+                value="metal"
+                label="Metal"
+                className="dark:text-gray-100"
+              >
                 Metal
               </SelectItem>
-              <SelectItem value="e-waste" label="E-Waste">
+              <SelectItem
+                value="e-waste"
+                label="E-Waste"
+                className="dark:text-gray-100"
+              >
                 E-Waste
               </SelectItem>
             </SelectGroup>
@@ -171,7 +196,10 @@ export default function RequestPickup() {
       </View>
 
       <View className="mb-4">
-        <Label className="text-[#0F5329]" htmlFor="estimatedWeight">
+        <Label
+          className="text-gray-900 dark:text-gray-100"
+          htmlFor="estimatedWeight"
+        >
           Estimated Weight (kg)
         </Label>
         <Input
@@ -180,12 +208,13 @@ export default function RequestPickup() {
           value={estimatedWeight}
           onChangeText={setEstimatedWeight}
           placeholder="Enter weight in kg"
-          className="text-[#0F5329] dark:bg-white dark:border-gray-400 "
+          className="text-gray-900 dark:text-gray-100 dark:bg-gray-900 dark:border-gray-600"
+          placeholderTextColor="#6B7280" // Tailwind's gray-500 color for placeholder
         />
       </View>
 
       <View className="mb-4">
-        <Label className="text-[#0F5329]" htmlFor="address">
+        <Label className="text-gray-900 dark:text-gray-100" htmlFor="address">
           Address
         </Label>
         <Input
@@ -193,12 +222,13 @@ export default function RequestPickup() {
           value={address}
           onChangeText={setAddress}
           placeholder="Pickup address"
-          className="text-[#0F5329] dark:bg-white dark:border-gray-400 "
+          className="text-gray-900 dark:text-gray-100 dark:bg-gray-900 dark:border-gray-600"
+          placeholderTextColor="#6B7280"
         />
       </View>
 
       <View className="mb-4">
-        <Label className="text-[#0F5329]" htmlFor="landmark">
+        <Label className="text-gray-900 dark:text-gray-100" htmlFor="landmark">
           Landmark
         </Label>
         <Input
@@ -206,12 +236,16 @@ export default function RequestPickup() {
           value={landmark}
           onChangeText={setLandmark}
           placeholder="Nearby landmark"
-          className="text-[#0F5329] dark:bg-white dark:border-gray-400 "
+          className="text-gray-900 dark:text-gray-100 dark:bg-gray-900 dark:border-gray-600"
+          placeholderTextColor="#6B7280"
         />
       </View>
 
       <View className="mb-4">
-        <Label className="text-[#0F5329]" htmlFor="instructions">
+        <Label
+          className="text-gray-900 dark:text-gray-100"
+          htmlFor="instructions"
+        >
           Instructions
         </Label>
         <Input
@@ -219,27 +253,31 @@ export default function RequestPickup() {
           value={instructions}
           onChangeText={setInstructions}
           placeholder="Any special instructions"
-          className="text-[#0F5329] dark:bg-white dark:border-gray-400 "
+          className="text-gray-900 dark:text-gray-100 dark:bg-gray-900 dark:border-gray-600"
+          placeholderTextColor="#6B7280"
         />
       </View>
 
       <View className="mb-4">
-        <Label className="text-[#0F5329]" htmlFor="preferredTime">
+        <Label
+          className="text-gray-900 dark:text-gray-100"
+          htmlFor="preferredTime"
+        >
           Preferred Time
         </Label>
         <Button
-          className=" bg-white border border-gray-300 rounded p-3 flex-row items-center"
+          className="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded p-3 flex-row items-center"
           onPress={showDatePicker}
         >
-          <FontAwesome name="calendar" size={16} color="#0F5329" />
-          <Text className="ml-2 text-[#0F5329]">
+          <FontAwesome name="calendar" size={16} color="#047857" />
+          <Text className="ml-2 text-gray-900 dark:text-gray-100">
             {preferredTime ? preferredTime : "Select Preferred Date"}
           </Text>
         </Button>
       </View>
 
       <View className="mb-5">
-        <Label className="text-[#0F5329]" htmlFor="notes">
+        <Label className="text-gray-900 dark:text-gray-100" htmlFor="notes">
           Notes
         </Label>
         <Input
@@ -248,13 +286,15 @@ export default function RequestPickup() {
           onChangeText={setNotes}
           placeholder="Extra notes (optional)"
           multiline
-          className="text-[#0F5329] dark:bg-white dark:border-gray-400 "
+          className="text-gray-900 dark:text-gray-100 dark:bg-gray-900 dark:border-gray-600"
+          placeholderTextColor="#6B7280"
         />
       </View>
+
       <Button
         disabled={loading}
         onPress={handleSubmit}
-        className="bg-[#0F5329] rounded-lg py-2 gap-2 flex-row items-center justify-center"
+        className="bg-green-800 dark:bg-green-600 rounded-lg py-2 gap-2 flex-row items-center justify-center"
       >
         {loading && (
           <View>
@@ -266,7 +306,7 @@ export default function RequestPickup() {
             />
           </View>
         )}
-        <Text className="text-white ">Request Pickup</Text>
+        <Text className="text-white">Request Pickup</Text>
       </Button>
     </KeyboardAwareScrollView>
   );

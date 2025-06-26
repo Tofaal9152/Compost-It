@@ -9,8 +9,8 @@ const AllRequestItem = ({ item }: { item: any }) => {
     mutationFn: () => deleter(`api/pickup-requests/${item?.id}`),
     queryKey: ["pickup-requests"],
   });
+
   const handleDelete = () => {
-    alert("Are you sure you want to delete this request?");
     deleteRequest.mutate("");
   };
 
@@ -27,26 +27,26 @@ const AllRequestItem = ({ item }: { item: any }) => {
   };
 
   return (
-    <View className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow flex-row justify-between items-start">
+    <View className="bg-white dark:bg-gray-900 p-4 rounded-2xl shadow flex-row justify-between items-start">
       <View className="flex-1">
-        <Text className="text-lg font-semibold capitalize">
+        <Text className="text-lg font-semibold capitalize text-gray-900 dark:text-gray-100">
           {item?.waste_type} Waste
         </Text>
-        <Text className="text-sm text-gray-600 dark:text-gray-300">
+        <Text className="text-sm text-gray-700 dark:text-gray-300">
           Estimated: {item?.estimated_weight} kg
         </Text>
-        <Text className="text-sm text-gray-600 dark:text-gray-300">
+        <Text className="text-sm text-gray-700 dark:text-gray-300">
           Address: {item?.pickup_location?.address}
         </Text>
-        <Text className="text-sm text-gray-600 dark:text-gray-300">
+        <Text className="text-sm text-gray-700 dark:text-gray-300">
           Preferred: {new Date(item?.preferred_time).toLocaleString()}
         </Text>
         {item?.notes ? (
-          <Text className="text-sm text-gray-600 dark:text-gray-300">
+          <Text className="text-sm text-gray-700 dark:text-gray-300">
             Notes: {item?.notes}
           </Text>
         ) : null}
-        <Text className="text-xs text-slate-500 mt-1">
+        <Text className="text-xs text-gray-500 dark:text-gray-400 mt-1">
           Created: {new Date(item?.created_at).toLocaleString()}
         </Text>
       </View>

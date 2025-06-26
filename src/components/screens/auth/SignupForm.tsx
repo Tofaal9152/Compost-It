@@ -16,6 +16,7 @@ const SignUpForm = () => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema),
@@ -33,6 +34,7 @@ const SignUpForm = () => {
       phone: data.phone,
       password: data.password,
     });
+    reset();
   };
 
   return (
@@ -49,7 +51,7 @@ const SignUpForm = () => {
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
-              className="text-sm"
+              className="text-sm bg-white border-0 text-black"
               placeholderTextColor="#6B7280"
             />
           )}
@@ -72,7 +74,7 @@ const SignUpForm = () => {
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
-              className="text-sm"
+              className="text-sm bg-white border-0 text-black"
               placeholderTextColor="#6B7280"
             />
           )}
@@ -97,7 +99,7 @@ const SignUpForm = () => {
               onChangeText={onChange}
               onBlur={onBlur}
               autoCapitalize="none"
-              className="text-sm"
+              className="text-sm bg-white border-0 text-black"
               placeholderTextColor="#6B7280"
             />
           )}
@@ -131,9 +133,7 @@ const SignUpForm = () => {
             size={20}
             color="#0F5329"
           />
-          <Text className="ml-1 text-xs text-gray-700 dark:text-gray-300">
-            Remember Me
-          </Text>
+          <Text className="ml-1 text-xs text-gray-700 ">Remember Me</Text>
         </TouchableOpacity>
 
         <TouchableOpacity>
@@ -145,7 +145,7 @@ const SignUpForm = () => {
 
       {/* Submit Button */}
       <AuthButton
-        btnText="Sign In"
+        btnText="Sign up"
         handleOnpress={handleSubmit(onSubmit)}
         isLoading={signupMutation.isPending}
       />

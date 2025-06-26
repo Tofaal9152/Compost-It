@@ -21,7 +21,7 @@ export default function PickupRequests() {
       error={pickupRequestsQuery.error}
       isError={pickupRequestsQuery.isError}
     >
-      <View className="flex-1 bg-gray-100 dark:bg-gray-900 p-4">
+      <View className="flex-1 bg-gray-100 dark:bg-gray-950 p-4">
         <InfiniteFlashListContent
           query={pickupRequestsQuery}
           extractItems={(data) =>

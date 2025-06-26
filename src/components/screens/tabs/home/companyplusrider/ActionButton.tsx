@@ -21,7 +21,7 @@ const ActionButton = ({ item, activeTab }: any) => {
       ? `api/pickup-requests/${item.id}/assign-rider`
       : !isCompany && pendingTab
       ? `api/pickup-requests/${item.id}/collected`
-      : `/api/pickup-requests/${item.id}/delivered`;
+      : `api/pickup-requests/${item.id}/delivered`;
 
   // queryKey
   const queryKey =
@@ -33,10 +33,7 @@ const ActionButton = ({ item, activeTab }: any) => {
 
   const mutation = useMutationHandler({
     queryKey,
-    mutationFn: (payload) =>
-      poster(endpoint, {
-        payload,
-      }),
+    mutationFn: (payload) => poster(endpoint, payload),
     onSuccess: () => {
       showToast({
         type: "success",
@@ -56,8 +53,10 @@ const ActionButton = ({ item, activeTab }: any) => {
 
   // onSubmit function
 
-  const onSubmit = () => {
-    const rider_id = isCompany ? item.rider_id : null;
+  const onSubmit = (riderId: any) => {
+    const rider_id = isCompany ? riderId : null;
+    console.log("Submitting with rider_id:", rider_id);
+
     mutation.mutate({ rider_id });
   };
 

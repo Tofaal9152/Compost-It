@@ -1,7 +1,9 @@
 import axios from "axios";
+import { useRouter } from "expo-router";
 import { useMutationHandler } from "~/src/hooks/useMutationHandler";
 
 export function SignupAction() {
+  const router = useRouter();
   return useMutationHandler({
     mutationFn: async (payload) => {
       const response = await axios.post(
@@ -9,6 +11,9 @@ export function SignupAction() {
         payload
       );
       return response.data;
+    },
+    onSuccess: () => {
+      router.push("/(auth)");
     },
     successMessage: {
       title: "Registration Successful",

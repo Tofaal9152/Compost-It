@@ -3,7 +3,16 @@ import { Stack } from "expo-router";
 import { ListCheckIcon, UserCircle2Icon } from "lucide-react-native";
 import { View } from "react-native";
 import { Text } from "~/src/components/ui/text";
+import { useColorScheme } from "~/src/lib/useColorScheme";
+
 const HomeLayout = () => {
+  const { isDarkColorScheme } = useColorScheme();
+
+  const headerBg = isDarkColorScheme ? "#0f172a" : "#ffffff"
+  const headerText = isDarkColorScheme ? "#ffffff" : "#0F5329";
+  const borderColor = headerText;
+  const iconColor = isDarkColorScheme ? "#ffffff" : "#0F5329";
+
   return (
     <Stack>
       <Stack.Screen
@@ -12,19 +21,31 @@ const HomeLayout = () => {
           headerShown: true,
           headerTitle: "Welcome User!",
           headerTitleAlign: "left",
-          headerBackground: () => <View className="bg-[#f3f4f6]" />,
+          headerBackground: () => (
+            <View style={{ backgroundColor: headerBg }} />
+          ),
           headerTitleStyle: {
             fontWeight: "600",
-            color: "#0F5329",
+            color: headerText,
           },
-
           headerStyle: {
-            backgroundColor: "#f3f4f6",
+            backgroundColor: headerBg,
           },
           headerRight: () => (
-            <View className="flex-row items-center gap-2 border-2 border-[#0F5329] rounded-lg p-2 mr-4">
-              <UserCircle2Icon color="#0F5329" size={16} />
-              <Text className="text-[#0F5329]">360D</Text>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 8,
+                borderWidth: 2,
+                borderColor: borderColor,
+                borderRadius: 8,
+                padding: 6,
+                marginRight: 16,
+              }}
+            >
+              <UserCircle2Icon color={iconColor} size={16} />
+              <Text style={{ color: headerText }}>360D</Text>
             </View>
           ),
         }}
@@ -36,13 +57,13 @@ const HomeLayout = () => {
           headerTitleAlign: "left",
           headerTitleStyle: {
             fontWeight: "600",
-            color: "#0F5329",
+            color: headerText,
           },
           headerStyle: {
-            backgroundColor: "#f3f4f6",
+            backgroundColor: headerBg,
           },
           headerRight: () => (
-            <FontAwesome5 name="motorcycle" size={24} color="black" />
+            <FontAwesome5 name="motorcycle" size={24} color={iconColor} />
           ),
         }}
       />
@@ -53,12 +74,12 @@ const HomeLayout = () => {
           headerTitleAlign: "left",
           headerTitleStyle: {
             fontWeight: "600",
-            color: "#0F5329",
+            color: headerText,
           },
           headerStyle: {
-            backgroundColor: "#f3f4f6",
+            backgroundColor: headerBg,
           },
-          headerRight: () => <ListCheckIcon size={24} color="black" />,
+          headerRight: () => <ListCheckIcon size={24} color={iconColor} />,
         }}
       />
     </Stack>

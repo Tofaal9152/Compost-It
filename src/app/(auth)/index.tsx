@@ -18,7 +18,7 @@ export default function LoginScreen() {
       <SignInForm />
 
       <View className="mt-6 flex-row justify-center">
-        <Text className="text-gray-700 dark:text-gray-300">
+        <Text className="text-gray-700 ">
           Don&apos;t have an account?{" "}
         </Text>
         <Link href="/(auth)/register" push>
