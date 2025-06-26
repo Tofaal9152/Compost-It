@@ -27,7 +27,7 @@ export default function SignupByRole() {
           Already have an account?{" "}
         </Text>
         <Link href="/(auth)" dismissTo>
-          <Text className="text-[#7138ED] font-semibold">Login</Text>
+          <Text className="text-[#0F5329] font-semibold">Login</Text>
         </Link>
       </View>
     </KeyboardAwareScrollView>

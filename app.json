@@ -17,7 +17,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tofaal9152.compostit"
     },
     "android": {
       "adaptiveIcon": {

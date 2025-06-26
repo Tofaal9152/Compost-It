@@ -1,8 +1,16 @@
 import React from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
 import { WebView } from "react-native-webview";
+import { useColorScheme } from "react-native";
 
 const MapComponent = ({ markers }: any) => {
+  const colorScheme = useColorScheme();
+  const darkMode = colorScheme === "dark";
+
+  const tileLayer = darkMode
+    ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+    : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+
   const markerJS = markers
     .map(
       (m: any) =>
@@ -19,7 +27,9 @@ const MapComponent = ({ markers }: any) => {
       <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
       <style>
         #map { height: 100vh; width: 100vw; }
-        body { margin: 0; }
+        body { margin: 0; background: ${
+          darkMode ? "#1c1c1e" : "#fff"
+        }; color: ${darkMode ? "#eee" : "#000"};
       </style>
     </head>
     <body>
@@ -29,7 +39,7 @@ const MapComponent = ({ markers }: any) => {
         const map = L.map('map').setView([${markers[0]?.latitude || 0}, ${
     markers[0]?.longitude || 0
   }], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        L.tileLayer('${tileLayer}', {
           maxZoom: 19
         }).addTo(map);
         ${markerJS}

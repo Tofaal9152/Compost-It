@@ -14,17 +14,18 @@ export default function HomePage() {
     <ScrollView
       style={{ padding: 20 }}
       contentContainerStyle={{ paddingBottom: 50 }}
-      className="bg-[#F4F4F4]"
+      className="bg-[#F4F4F4] dark:bg-gray-950"
     >
-      <View className="bg-white p-5 rounded-2xl mb-6 shadow-md">
-        <Text className="text-base font-bold text-[#0F5329] mb-2">
+      <View className="bg-white dark:bg-gray-900 p-5 rounded-2xl mb-6 shadow-md">
+        <Text className="text-base font-bold text-[#0F5329] dark:text-green-300 mb-2">
           Current Location
         </Text>
 
         <YourLocation />
-        {role === "household" && (
+
+        {role !== "household" && (
           <Link href="/request-pickup" asChild push>
-            <Button className="bg-[#0F5329] px-6 py-3 rounded-full shadow-lg mt-2">
+            <Button className="bg-[#0F5329] dark:bg-green-700 px-6 py-3 rounded-full shadow-lg mt-2">
               <Text className="text-white text-center text-base font-semibold tracking-wide">
                 🚛 REQUEST A PICKUP
               </Text>
@@ -32,6 +33,7 @@ export default function HomePage() {
           </Link>
         )}
       </View>
+
       <RoleBasedRender />
     </ScrollView>
   );

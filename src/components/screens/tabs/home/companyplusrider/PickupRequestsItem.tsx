@@ -4,25 +4,38 @@ import ActionButton from "./ActionButton";
 
 const PickupRequestsItem = ({ item, activeTab }: any) => {
   return (
-    <View className="mb-4 p-4 rounded-lg bg-gray-100 ">
-      <Text className="font-semibold text-[#0F5329] ">Waste Type:</Text>
-      <Text className="text-black ">{item.waste_type}</Text>
+    <View className="mb-4 p-4 rounded-lg bg-gray-100 dark:bg-gray-800">
+      <Text className="font-semibold text-[#0F5329] dark:text-green-300">
+        Waste Type:
+      </Text>
+      <Text className="text-black dark:text-gray-100">{item.waste_type}</Text>
 
-      <Text className="font-semibold text-[#0F5329] mt-2">
+      <Text className="font-semibold text-[#0F5329] dark:text-green-300 mt-2">
         Estimated Weight:
       </Text>
-      <Text className="text-black ">{item.estimated_weight} kg</Text>
+      <Text className="text-black dark:text-gray-100">
+        {item.estimated_weight} kg
+      </Text>
 
-      <Text className="font-semibold text-[#0F5329] mt-2">Pickup Address:</Text>
-      <Text className="text-black ">{item.pickup_location?.address}</Text>
+      <Text className="font-semibold text-[#0F5329] dark:text-green-300 mt-2">
+        Pickup Address:
+      </Text>
+      <Text className="text-black dark:text-gray-100">
+        {item.pickup_location?.address}
+      </Text>
 
-      <Text className="font-semibold text-[#0F5329] mt-2">Preferred Time:</Text>
-      <Text className="text-black ">
+      <Text className="font-semibold text-[#0F5329] dark:text-green-300 mt-2">
+        Preferred Time:
+      </Text>
+      <Text className="text-black dark:text-gray-100">
         {new Date(item.preferred_time).toLocaleString()}
       </Text>
 
-      <Text className="font-semibold text-[#0F5329] mt-2">Notes:</Text>
-      <Text className="text-black ">{item.notes}</Text>
+      <Text className="font-semibold text-[#0F5329] dark:text-green-300 mt-2">
+        Notes:
+      </Text>
+      <Text className="text-black dark:text-gray-100">{item.notes}</Text>
+
       {activeTab === "completed" ? (
         ""
       ) : (

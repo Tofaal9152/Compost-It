@@ -9,10 +9,11 @@ export default function LoginScreen() {
     <KeyboardAwareScrollView
       contentContainerStyle={{ flexGrow: 1, padding: 16 }}
       enableOnAndroid
+      extraScrollHeight={100}
       keyboardShouldPersistTaps="handled"
     >
       {/* header */}
-      <AuthHeader title="Welcome to Up&Pro" />
+      <AuthHeader title="Welcome Back" />
 
       <SignInForm />
 
@@ -21,7 +22,7 @@ export default function LoginScreen() {
           Don&apos;t have an account?{" "}
         </Text>
         <Link href="/(auth)/register" push>
-          <Text className="text-[#7138ED] font-semibold">Sign Up</Text>
+          <Text className="text-[#0F5329] font-semibold">Sign Up</Text>
         </Link>
       </View>
     </KeyboardAwareScrollView>

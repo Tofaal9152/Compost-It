@@ -4,7 +4,7 @@ import { ecoProducts } from "~/src/constants/Shoplists";
 
 const Shop = () => {
   return (
-    <View className="flex-1 bg-gray-100 dark:bg-gray-900 px-4 pt-6">
+    <View className="flex-1 bg-gray-100 dark:bg-gray-950 px-4 pt-6">
       <FlatList
         data={ecoProducts}
         keyExtractor={(item) => item.id}

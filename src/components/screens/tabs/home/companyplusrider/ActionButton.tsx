@@ -70,7 +70,7 @@ const ActionButton = ({ item, activeTab }: any) => {
         <Button
           size={"sm"}
           onPress={onSubmit}
-          className="bg-[#0F5329]"
+          className="bg-[#0F5329] dark:bg-green-700"
           disabled={mutation.isPending}
         >
           <Text className="text-white">Collect</Text>
@@ -81,7 +81,7 @@ const ActionButton = ({ item, activeTab }: any) => {
       <Button
         size={"sm"}
         onPress={onSubmit}
-        className="bg-[#0F5329]"
+        className="bg-[#0F5329] dark:bg-green-700"
         disabled={mutation.isPending}
       >
         <Text className="text-white">Delivered</Text>

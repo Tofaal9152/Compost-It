@@ -16,7 +16,7 @@ const AuthButton = ({
     <Button
       disabled={isLoading}
       onPress={handleOnpress}
-      className="bg-[#7138ED] rounded-lg py-2 gap-2 flex-row items-center justify-center"
+      className="bg-[#0F5329] rounded-lg py-2 gap-2 flex-row items-center justify-center"
     >
       {isLoading && (
         <View>

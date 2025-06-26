@@ -40,8 +40,11 @@ const AllRidersSelect = ({ onSubmit }: any) => {
           if (option) setrider(option.value);
         }}
       >
-        <SelectTrigger className="bg-white rounded p-3 mt-1">
-          <SelectValue placeholder="Select rider" />
+        <SelectTrigger className="bg-white dark:bg-gray-900">
+          <SelectValue
+            placeholder="Select rider"
+            className="text-[#0F5329] dark:text-green-300"
+          />
         </SelectTrigger>
         <SelectContent insets={contentInsets}>
           <SelectGroup>

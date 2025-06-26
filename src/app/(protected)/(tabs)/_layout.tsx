@@ -2,20 +2,25 @@ import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Feather from "@expo/vector-icons/Feather";
 import { Tabs } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useColorScheme } from "~/src/lib/useColorScheme";
 export default function TabsLayout() {
+  const { isDarkColorScheme } = useColorScheme();
   const insects = useSafeAreaInsets();
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#0F5329",
-        tabBarInactiveTintColor: "#0F5329B2",
+        tabBarActiveTintColor: `${isDarkColorScheme ? "#10B981" : "#0F5329"}`,
+        tabBarInactiveTintColor: `${
+          isDarkColorScheme ? "#6B7280" : "#0F5329B2"
+        }`,
         headerShadowVisible: false,
         headerTitleStyle: {
           fontWeight: "600",
         },
         tabBarStyle: {
-          backgroundColor: "#fff",
+          backgroundColor: `${isDarkColorScheme ? "#111827" : "#fff"}`,
+          borderTopColor: `${isDarkColorScheme ? "#333" : "#ccc"}`,
           borderTopWidth: 0,
           paddingTop: 5,
           paddingBottom: insects.bottom,

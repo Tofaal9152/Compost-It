@@ -1,109 +1,156 @@
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
-// import { useRouter } from "expo-router";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { Alert, Text, TouchableOpacity, View } from "react-native";
-// import { Button } from "~/src/components/ui/button";
-import { Input } from "../../ui/input";
-// import { useAuthStore } from "~/src/store/authStore";
+import { Controller, useForm } from "react-hook-form";
+import { Text, TouchableOpacity, View } from "react-native";
+import { Input } from "~/src/components/ui/input";
+import { SignUpFormData, signUpSchema } from "~/src/schema/authSchema";
+import { SignupAction } from "~/src/services/authService/SignupService";
 import AuthButton from "./AuthButton";
 
-export default function SignupForm() {
-  // const {  register } = useAuthStore();
-  const [form, setForm] = useState({
-    full_name: "",
-    email: "",
-    password: "",
-    class: "",
-    gender: "",
-    promo_code: "",
-    showPassword: false,
-    rememberMe: true,
+const SignUpForm = () => {
+  const signupMutation = SignupAction();
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignUpFormData>({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      email: "",
+      phone: "",
+      password: "",
+    },
   });
-  const updateForm = (field: keyof typeof form, value: any) =>
-    setForm((prev) => ({ ...prev, [field]: value }));
-  // const router = useRouter();
 
-  const handleSignup = async () => {
-    // const result = await register(form.full_name, form.email, form.password);
-    // if (result.success) {
-    //   Alert.alert("Registration Successful", result.message);
-    // } else {
-    //   Alert.alert("Registration Failed", result.message);
-    // }
-    Alert.alert("Registration pending", "Implementation pending");
+  const onSubmit = async (data: SignUpFormData) => {
+    console.log("Form Data:", data);
+    signupMutation.mutate({
+      email: data.email,
+      phone: data.phone,
+      password: data.password,
+    });
   };
+
   return (
-    <View className="gap-3">
-      <Input
-        placeholder="Full Name"
-        placeholderTextColor="#6B7280"
-        value={form.full_name}
-        onChangeText={(text) => updateForm("full_name", text)}
-      />
-
-      <Input
-        placeholder="Class"
-        placeholderTextColor="#6B7280"
-        value={form.class}
-        onChangeText={(text) => updateForm("class", text)}
-      />
-
-      <Input
-        placeholder="Gender"
-        placeholderTextColor="#6B7280"
-        value={form.gender}
-        onChangeText={(text) => updateForm("gender", text)}
-      />
-
-      <Input
-        placeholder="Email or Phone No"
-        placeholderTextColor="#6B7280"
-        value={form.email}
-        onChangeText={(text) => updateForm("email", text)}
-      />
-
-      <View className="relative mb-4">
-        <Input
-          placeholder="Password"
-          placeholderTextColor="#6B7280"
-          value={form.password}
-          onChangeText={(text) => updateForm("password", text)}
-          secureTextEntry={!form.showPassword}
+    <View className="gap-4">
+      {/* Email */}
+      <View>
+        <Controller
+          control={control}
+          name="email"
+          render={({ field: { onChange, value, onBlur } }) => (
+            <Input
+              placeholder="Enter your email"
+              autoCapitalize="none"
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              className="text-sm"
+              placeholderTextColor="#6B7280"
+            />
+          )}
         />
+        {errors.email && (
+          <Text className="text-xs text-red-500 mt-1">
+            {errors.email.message}
+          </Text>
+        )}
+      </View>
+      {/* phone */}
+      <View>
+        <Controller
+          control={control}
+          name="phone"
+          render={({ field: { onChange, value, onBlur } }) => (
+            <Input
+              placeholder="Enter your phone number"
+              autoCapitalize="none"
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              className="text-sm"
+              placeholderTextColor="#6B7280"
+            />
+          )}
+        />
+        {errors.phone && (
+          <Text className="text-xs text-red-500 mt-1">
+            {errors.phone.message}
+          </Text>
+        )}
+      </View>
+
+      {/* Password */}
+      <View className="relative">
+        <Controller
+          control={control}
+          name="password"
+          render={({ field: { onChange, value, onBlur } }) => (
+            <Input
+              placeholder="Password"
+              secureTextEntry={!showPassword}
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              autoCapitalize="none"
+              className="text-sm"
+              placeholderTextColor="#6B7280"
+            />
+          )}
+        />
+
         <TouchableOpacity
-          onPress={() => updateForm("showPassword", !form.showPassword)}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2"
+          onPress={() => setShowPassword(!showPassword)}
+          className="absolute right-3 top-1/2 transform -translate-y-1/2"
         >
           <Ionicons
-            name={form.showPassword ? "eye-off" : "eye"}
-            size={20}
+            name={showPassword ? "eye-off" : "eye"}
+            size={18}
             color="#6B7280"
           />
         </TouchableOpacity>
+        {errors.password && (
+          <Text className="text-xs text-red-500 mt-1">
+            {errors.password.message}
+          </Text>
+        )}
       </View>
 
-      <Input
-        placeholder="Promo Code"
-        placeholderTextColor="#6B7280"
-        value={form.promo_code}
-        onChangeText={(text) => updateForm("promo_code", text)}
+      {/* Remember Me & Forgot Password */}
+      <View className="flex-row justify-between items-center">
+        <TouchableOpacity
+          onPress={() => setRememberMe(!rememberMe)}
+          className="flex-row items-center"
+        >
+          <FontAwesome
+            name={rememberMe ? "toggle-on" : "toggle-off"}
+            size={20}
+            color="#0F5329"
+          />
+          <Text className="ml-1 text-xs text-gray-700 dark:text-gray-300">
+            Remember Me
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <Text className="text-xs text-[#0F5329] font-medium">
+            Forgot password?
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Submit Button */}
+      <AuthButton
+        btnText="Sign In"
+        handleOnpress={handleSubmit(onSubmit)}
+        isLoading={signupMutation.isPending}
       />
-
-      <TouchableOpacity
-        onPress={() => updateForm("rememberMe", !form.rememberMe)}
-        className="flex-row items-center mb-4"
-      >
-        <FontAwesome
-          name={form.rememberMe ? "toggle-on" : "toggle-off"}
-          size={24}
-          color="#7138ED"
-        />
-        <Text className="ml-2 text-gray-700 font-medium dark:text-gray-300">
-          Remember Me
-        </Text>
-      </TouchableOpacity>
-
-      <AuthButton btnText="Sign Up" handleOnpress={handleSignup} />
     </View>
   );
-}
+};
+
+export default SignUpForm;

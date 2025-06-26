@@ -26,6 +26,7 @@ const SignInForm = () => {
   });
 
   const onSubmit = async (data: SignInFormData) => {
+    console.log("Form Data:", data);
     loginMutation.mutate({
       emailOrPhone: data.emailOrPhone,
       password: data.password,
@@ -102,7 +103,7 @@ const SignInForm = () => {
           <FontAwesome
             name={rememberMe ? "toggle-on" : "toggle-off"}
             size={20}
-            color="#7138ED"
+            color="#0F5329"
           />
           <Text className="ml-1 text-xs text-gray-700 dark:text-gray-300">
             Remember Me
@@ -110,7 +111,7 @@ const SignInForm = () => {
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Text className="text-xs text-[#7138ED] font-medium">
+          <Text className="text-xs text-[#0F5329] font-medium">
             Forgot password?
           </Text>
         </TouchableOpacity>
